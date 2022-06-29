@@ -9,7 +9,15 @@ const AppTable = styled.table`
   margin: 50px auto;
   padding: 10px;
   padding-right: 0;
-  background-color: gray;
+  background-color: #bebebe;
+
+  /* th {
+    background-color: blue;
+    width: 300px;
+  }
+  th:first-child {
+    width: 20px;
+  } */
 `;
 
 import Row from "./Row";
@@ -32,7 +40,7 @@ function Table() {
                 );
               }
             })}
-            <th scope='col'></th>
+            <th scope='col'>ACTIONS</th>
           </tr>
         </thead>
         <tbody>

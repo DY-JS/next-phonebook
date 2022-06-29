@@ -9,8 +9,9 @@ const StyledCell = styled.td`
   display: ${({ icon }) => icon && "flex"};
   justify-content: center;
   align-items: center;
-  width: ${({ icon }) => icon && "130px"};
-  margin: ${({ icon }) => icon && "13px"};
+  width: ${({ icon }) => icon && "150px"};
+  margin-top: ${({ icon }) => icon && "13px"};
+  margin-right: ${({ icon }) => icon && "-140px"};
 `;
 
 const ImgContainer = styled.div`
@@ -31,8 +32,8 @@ const Vertical = styled.div`
   background: #000;
 `;
 
-export const StyledP = styled.p`
-  width: 100%;
+export const ContactInfo = styled.p`
+  width: 90%;
   height: 35px;
   margin: 10px;
   padding-left: 10px;
@@ -69,7 +70,7 @@ const Cell = ({ item, dataItem, icon, setEditMode }) => {
           </ImgContainer>
         </>
       ) : (
-        <StyledP>{dataItem}</StyledP>
+        <ContactInfo>{dataItem}</ContactInfo>
       )}
     </StyledCell>
   );

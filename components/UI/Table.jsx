@@ -1,13 +1,14 @@
 import React, { useContext } from "react";
 import styled from "styled-components";
 
-import { PhonesContext } from "./../../context/PnonesContext";
+import { PhonesContext } from "../../context/PhonesContext";
 import EditForm from "./EditForm";
 
 const AppTable = styled.table`
   width: 70%;
-  margin: 0 auto;
+  margin: 50px auto;
   padding: 10px;
+  padding-right: 0;
   background-color: gray;
 `;
 

@@ -4,15 +4,6 @@ import phonesData from "../pages/api/data.json";
 export const PhonesContext = createContext();
 
 export const PhonesContextProvider = ({ children }) => {
-  //const columns = useMemo(() => ["name", "phone"], []);
-
-  //   const getInitialData = (columns) => {
-  //     return (
-  //       columns?.length &&
-  //       columns.reduce((initial, key) => (initial[key] = null), {})
-  //     );
-  //   };
-
   const [data, setData] = useState(phonesData);
   const columns = data?.length ? Object.keys(data[0]) : [];
   const initialData = {
@@ -22,6 +13,7 @@ export const PhonesContextProvider = ({ children }) => {
   const [selectedNote, setSelectedNote] = useState(null);
   const [newNote, setNewNote] = useState(initialData);
   const [editMode, setEditMode] = useState(false);
+  const [addMode, setAddMode] = useState(false);
 
   const handleAddNote = useCallback(
     (newNote) => {
@@ -70,8 +62,10 @@ export const PhonesContextProvider = ({ children }) => {
       setNewNote,
       editMode,
       setEditMode,
+      addMode,
+      setAddMode,
     }),
-    [columns, data, selectedNote, newNote, initialData, editMode]
+    [columns, data, selectedNote, newNote, initialData, editMode, addMode]
   );
 
   return (

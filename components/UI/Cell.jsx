@@ -2,19 +2,23 @@ import React, { useContext, useEffect, useState } from "react";
 import styled from "styled-components";
 import Image from "next/image";
 
-import { PhonesContext } from "./../../context/PnonesContext";
+import { PhonesContext } from "./../../context/PhonesContext";
 import vercel from "./../../public/vercel.svg";
 
 const StyledCell = styled.td`
   display: ${({ icon }) => icon && "flex"};
-  width: ${({ icon }) => icon && "170px"};
-  margin: ${({ icon }) => icon && "3px"};
+  justify-content: center;
+  align-items: center;
+  width: ${({ icon }) => icon && "130px"};
+  margin: ${({ icon }) => icon && "13px"};
 `;
 
 const ImgContainer = styled.div`
+  display: flex;
+  align-items: center;
   height: 35px;
-  margin: 10px;
-  padding: 5px;
+  margin: 0 5px;
+  padding: 0 5px;
   background: #c7d2fe;
   color: #111827;
   border: none;
@@ -25,23 +29,6 @@ const Vertical = styled.div`
   height: 100%;
   width: 2px;
   background: #000;
-`;
-
-export const StyledInput = styled.input`
-  width: 100%;
-  height: 35px;
-  margin: 10px;
-  padding-left: 10px;
-  background: #c7d2fe;
-  color: #111827;
-  border: none;
-  border-radius: 3px;
-  font-size: 14px;
-
-  @media (max-width: 568px) {
-    width: 55%;
-    margin-bottom: 10px;
-  }
 `;
 
 export const StyledP = styled.p`
@@ -62,18 +49,9 @@ export const StyledP = styled.p`
   }
 `;
 
-const Cell = ({ item, dataItem, name, icon, editMode, setEditMode }) => {
-  const {
-    data,
-    columns,
-    selectedNote,
-    setSelectedNote,
-    handleAddNote,
-    handleDeleteNote,
-    handleEditNote,
-    newNote,
-    setNewNote,
-  } = useContext(PhonesContext);
+const Cell = ({ item, dataItem, icon, setEditMode }) => {
+  const { selectedNote, setSelectedNote, handleDeleteNote } =
+    useContext(PhonesContext);
 
   useEffect(() => {
     // console.log(selectedNote);

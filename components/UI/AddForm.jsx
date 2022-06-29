@@ -1,10 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import styled from "styled-components";
-import Image from "next/image";
 
 import { PhonesContext } from "../../context/PhonesContext";
-import vercel from "./../../public/vercel.svg";
-import Button from "./Button";
 
 const Form = styled.div`
   width: 100%;
@@ -74,14 +71,9 @@ const StyledButton = styled.button`
   }
 `;
 
-const EditForm = () => {
-  const {
-    selectedNote,
-    setSelectedNote,
-    handleEditNote,
-    editMode,
-    setEditMode,
-  } = useContext(PhonesContext);
+const AddForm = () => {
+  const { newNote, setNewNote, addMode, setAddMode } =
+    useContext(PhonesContext);
   console.log(editMode);
 
   const [isSuccess, setIsSuccess] = useState(false);
@@ -91,7 +83,7 @@ const EditForm = () => {
     setIsSuccess(true);
   };
 
-  const canselEditMode = () => setEditMode(false);
+  const canselAddMode = () => setAddMode(false);
 
   const handleChange = (event) => {
     const { name, value } = event.currentTarget;
@@ -106,7 +98,7 @@ const EditForm = () => {
   useEffect(() => {
     if (isSuccess) {
       const timer = setTimeout(() => {
-        setEditMode(false);
+        setAddMode(false);
       }, 1000);
       return () => {
         setIsSuccess(false);
@@ -118,26 +110,26 @@ const EditForm = () => {
   return (
     <Container editMode={editMode}>
       <Form>
-        <Title>EDIT CONTACT</Title>
+        <Title>ADD CONTACT</Title>
         <StyledInput
           name='name'
-          value={selectedNote["name"]}
+          value={newNote["name"]}
           type='text'
           onChange={handleChange}
         />
         <StyledInput
           name='phone'
-          value={selectedNote["phone"]}
+          value={newNote["phone"]}
           type='text'
           onChange={handleChange}
         />
         {isSuccess ? (
-          <Title>SUCCESSFULLY UPDATED</Title>
+          <Title>SUCCESSFULLY ADDED</Title>
         ) : (
           <Buttons>
             <StyledButton
               actionType={"cancel"}
-              onClick={canselEditMode}
+              onClick={canselAddMode}
               type='button'
             >
               Cancel
@@ -152,4 +144,4 @@ const EditForm = () => {
   );
 };
 
-export default EditForm;
+export default AddForm;

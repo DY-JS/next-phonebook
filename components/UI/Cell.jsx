@@ -13,6 +13,11 @@ const StyledCell = styled.td`
   width: ${({ icon }) => icon && "180px"};
   margin-top: ${({ icon }) => icon && "13px"};
   margin-right: ${({ icon }) => icon && "-100px"};
+
+  @media (max-width: 768px) {
+    width: ${({ icon }) => (icon ? "180px" : "250px")};
+    margin-right: ${({ icon }) => icon && "-10px"};
+  }
 `;
 
 const ImgContainer = styled.div`
@@ -27,6 +32,15 @@ const ImgContainer = styled.div`
   border-radius: 3px;
   transform: scale(1.5);
   cursor: pointer;
+
+  @media (max-width: 1000px) {
+    transform: scale(1.3);
+    margin: 5px 10px;
+  }
+
+  @media (max-width: 768px) {
+    transform: scale(1.1);
+  }
 `;
 
 const Vertical = styled.div`
@@ -48,8 +62,9 @@ export const ContactInfo = styled.p`
   line-height: 35px;
 
   @media (max-width: 568px) {
-    width: 55%;
+    width: 100%;
     margin-bottom: 10px;
+    font-size: 13px;
   }
 `;
 

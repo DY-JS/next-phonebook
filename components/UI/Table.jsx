@@ -11,6 +11,14 @@ const AppTable = styled.table`
   padding: 10px;
   padding-right: 0;
   background-color: #bebebe;
+
+  @media (max-width: 1100px) {
+    width: 85%;
+  }
+
+  @media (max-width: 800px) {
+    width: 95%;
+  }
 `;
 
 function Table() {

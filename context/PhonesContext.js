@@ -4,9 +4,11 @@ import phonesData from "../pages/api/data.json";
 export const PhonesContext = createContext();
 
 export const PhonesContextProvider = ({ children }) => {
+  const lsKey = "phonebook";
   const [data, setData] = useState(phonesData);
   const columns = data?.length ? Object.keys(data[0]) : [];
   const initialData = {
+    id: "",
     name: "",
     phone: "",
   };
@@ -15,27 +17,32 @@ export const PhonesContextProvider = ({ children }) => {
   const [editMode, setEditMode] = useState(false);
   const [addMode, setAddMode] = useState(false);
 
+  const saveInLS = (key, data) => {
+    if (localStorage) {
+      localStorage.setItem(key, JSON.stringify(data));
+    }
+  };
+
   const handleAddNote = useCallback(
     (newNote) => {
       const newData = [...data, newNote];
-      setData((current) => data);
-      //saveInLS(lsKey, data);
+      setData((current) => newData);
+      saveInLS(lsKey, data);
     },
     [data]
   );
 
   const handleDeleteNote = useCallback(
     (id) => {
-      const newData = data.filter((note) => note.phone !== id);
+      const newData = data.filter((note) => note.id !== id);
       setData(newData);
-      //saveInLS(lsKey, data);
+      saveInLS(lsKey, data);
     },
     [data]
   );
 
   const handleEditNote = useCallback(
     ({ name, phone, id }) => {
-      //const { name, phone } = selectedNote;
       const newData = data.map((note) => {
         if (note.id === id) {
           return { ...note, name, phone };
@@ -43,6 +50,7 @@ export const PhonesContextProvider = ({ children }) => {
         return note;
       });
       setData((data) => newData);
+      saveInLS(lsKey, data);
     },
     [data]
   );
@@ -50,6 +58,7 @@ export const PhonesContextProvider = ({ children }) => {
   const value = useMemo(
     () => ({
       data,
+      lsKey,
       setData,
       initialData,
       columns,

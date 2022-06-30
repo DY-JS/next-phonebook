@@ -1,8 +1,9 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import styled from "styled-components";
 
 import { PhonesContext } from "../../context/PhonesContext";
 import EditForm from "./EditForm";
+import Row from "./Row";
 
 const AppTable = styled.table`
   width: 70%;
@@ -10,20 +11,20 @@ const AppTable = styled.table`
   padding: 10px;
   padding-right: 0;
   background-color: #bebebe;
-
-  /* th {
-    background-color: blue;
-    width: 300px;
-  }
-  th:first-child {
-    width: 20px;
-  } */
 `;
 
-import Row from "./Row";
-
 function Table() {
-  const { data, columns, editMode } = useContext(PhonesContext);
+  const { data, setData, lsKey, columns, editMode } = useContext(PhonesContext);
+
+  useEffect(() => {
+    const getDataFromLS = (key) => {
+      if (typeof window !== "undefined") {
+        localStorage.setItem(key, JSON.stringify(data));
+      }
+    };
+    const dataFromLS = getDataFromLS(lsKey);
+    dataFromLS?.length > 0 && setData(dataFromLS);
+  }, []);
 
   return (
     <>

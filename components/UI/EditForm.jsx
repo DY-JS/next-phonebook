@@ -1,10 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import styled from "styled-components";
-import Image from "next/image";
 
 import { PhonesContext } from "../../context/PhonesContext";
-import vercel from "./../../public/vercel.svg";
-import Button from "./Button";
 
 const Form = styled.div`
   width: 100%;
@@ -12,6 +9,8 @@ const Form = styled.div`
 
 const Title = styled.h2`
   color: #10b981;
+  width: max-content;
+  margin: 10px auto;
 `;
 
 const Buttons = styled.div`
@@ -123,12 +122,14 @@ const EditForm = () => {
           name='name'
           value={selectedNote["name"]}
           type='text'
+          placeholder='Type name'
           onChange={handleChange}
         />
         <StyledInput
           name='phone'
           value={selectedNote["phone"]}
           type='text'
+          placeholder='Type phone number'
           onChange={handleChange}
         />
         {isSuccess ? (

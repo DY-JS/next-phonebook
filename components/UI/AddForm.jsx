@@ -9,6 +9,8 @@ const Form = styled.div`
 
 const Title = styled.h2`
   color: #10b981;
+  width: max-content;
+  margin: 10px auto;
 `;
 
 const Buttons = styled.div`
@@ -18,12 +20,9 @@ const Buttons = styled.div`
 `;
 
 const Container = styled.div`
-  display: ${({ editMode }) => (editMode ? "flex" : "none")};
-  position: absolute;
-  top: 25%;
-  right: 25%;
   width: 500px;
   height: 300px;
+  margin: 0 auto;
   padding: 15px;
   background: #374151;
   color: #111827;
@@ -72,33 +71,51 @@ const StyledButton = styled.button`
 `;
 
 const AddForm = () => {
-  const { newNote, setNewNote, addMode, setAddMode } =
-    useContext(PhonesContext);
-  console.log(editMode);
+  const {
+    data,
+    newNote,
+    setNewNote,
+    addMode,
+    setAddMode,
+    handleAddNote,
+    initialData,
+  } = useContext(PhonesContext);
+
+  console.log(newNote);
 
   const [isSuccess, setIsSuccess] = useState(false);
   const handleClick = (event) => {
     event.preventDefault();
-    handleEditNote(selectedNote);
+    setNewNote(newNote);
+    handleAddNote(newNote);
     setIsSuccess(true);
+    setNewNote(initialData);
   };
 
-  const canselAddMode = () => setAddMode(false);
+  const cancelAddMode = () => setAddMode(false);
 
   const handleChange = (event) => {
     const { name, value } = event.currentTarget;
     const prepearedValue =
       name === "phone" ? value.replace(/[^\d]/g, "") : value;
-    setSelectedNote({
-      ...selectedNote,
-      [name]: prepearedValue,
-    });
+
+    name === "phone"
+      ? setNewNote({
+          ...newNote,
+          [name]: Number(prepearedValue),
+          id: Number(prepearedValue),
+        })
+      : setNewNote({
+          ...newNote,
+          [name]: prepearedValue,
+        });
   };
 
   useEffect(() => {
     if (isSuccess) {
       const timer = setTimeout(() => {
         setAddMode(false);
+        console.log(data);
       }, 1000);
       return () => {
         setIsSuccess(false);
@@ -108,19 +125,21 @@ const AddForm = () => {
   }, [isSuccess]);
 
   return (
-    <Container editMode={editMode}>
+    <Container>
       <Form>
         <Title>ADD CONTACT</Title>
         <StyledInput
           name='name'
           value={newNote["name"]}
           type='text'
+          placeholder='Type name'
           onChange={handleChange}
         />
         <StyledInput
           name='phone'
           value={newNote["phone"]}
           type='text'
+          placeholder='Type phone number'
           onChange={handleChange}
         />
         {isSuccess ? (
@@ -129,7 +148,7 @@ const AddForm = () => {
           <Buttons>
             <StyledButton
               actionType={"cancel"}
-              onClick={canselAddMode}
+              onClick={cancelAddMode}
               type='button'
             >
               Cancel

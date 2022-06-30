@@ -1,9 +1,7 @@
-import React, { useContext, useState } from "react";
-import styled from "styled-components";
+import React, { useContext } from "react";
 
 import { PhonesContext } from "../../context/PhonesContext";
 import Cell from "./Cell";
-import EditForm from "./EditForm";
 
 const Row = ({ item, index }) => {
   const { editMode, setEditMode } = useContext(PhonesContext);

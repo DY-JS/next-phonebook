@@ -3,14 +3,17 @@ import styled from "styled-components";
 import Image from "next/image";
 
 import { PhonesContext } from "./../context/PhonesContext";
-import vercel from "./../public/vercel.svg";
+import AddForm from "./UI/AddForm";
+import Plus from "./../public/Plus.svg";
 
 const Container = styled.div`
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
+  align-items: center;
   margin: 20px auto;
   height: 35px;
-  width: 30%;
+  width: 250px;
+  cursor: pointer;
 `;
 
 const ImgContainer = styled.div`
@@ -21,25 +24,27 @@ const ImgContainer = styled.div`
   border-radius: 3px;
 `;
 
-// const III = styled(ImgContainer)`
-//   height: 105px;
-//   background: #c7d2fe;
-// `;
-
 const Title = styled.h4`
-  width: 50%;
+  width: max-content;
+  margin-left: 15px;
   text-align: right;
 `;
 const AddContact = () => {
   const { addMode, setAddMode } = useContext(PhonesContext);
 
   return (
-    <Container onClick={() => setAddMode(true)}>
-      <ImgContainer>
-        <Image src={vercel} alt='Add' />
-      </ImgContainer>
-      <Title>ADD NEW CONTACT</Title>
-    </Container>
+    <>
+      {addMode ? (
+        <AddForm />
+      ) : (
+        <Container onClick={() => setAddMode(true)}>
+          <ImgContainer>
+            <Image src={Plus} alt='Add' />
+          </ImgContainer>
+          <Title>ADD NEW CONTACT</Title>
+        </Container>
+      )}
+    </>
   );
 };
 

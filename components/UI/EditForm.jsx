@@ -31,6 +31,11 @@ const Container = styled.div`
   color: #111827;
   border: none;
   border-radius: 3px;
+
+  @media (max-width: 756px) {
+    width: 300px;
+    right: 10%;
+  }
 `;
 
 const StyledInput = styled.input`

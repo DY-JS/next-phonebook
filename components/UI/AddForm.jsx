@@ -17,6 +17,10 @@ const Buttons = styled.div`
   display: flex;
   width: 50%;
   margin: 0 auto;
+
+  @media (max-width: 756px) {
+    width: 80%;
+  }
 `;
 
 const Container = styled.div`
@@ -28,6 +32,10 @@ const Container = styled.div`
   color: #111827;
   border: none;
   border-radius: 3px;
+
+  @media (max-width: 756px) {
+    width: 300px;
+  }
 `;
 
 const StyledInput = styled.input`
@@ -42,7 +50,7 @@ const StyledInput = styled.input`
   font-size: 14px;
 
   @media (max-width: 568px) {
-    width: 55%;
+    width: 85%;
     margin-bottom: 10px;
   }
 `;

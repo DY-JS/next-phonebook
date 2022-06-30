@@ -2,13 +2,17 @@
   "name": "next-phonebook",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://dy-js.github.io/next-phonebook/",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "deploy": "gh-pages -d build",
+    "predeploy": "npm run build"
   },
   "dependencies": {
+    "gh-pages": "^4.0.0",
     "next": "12.2.0",
     "react": "18.2.0",
     "react-dom": "18.2.0",

@@ -7,7 +7,7 @@ export const ModalContainer = styled.div`
   height: 100vh;
   top: 0;
   left: 0;
-  background-color: rgba(17, 24, 39, 0.5);
+  background-color: rgba(17, 24, 39, 0.7);
   opacity: ${({ active }) => (active ? '1' : '0')};
   display: flex;
   justify-content: center;
@@ -22,12 +22,13 @@ export const ModalContent = styled.div`
   position: fixed;
   width: 50%;
   height: 30%;
-  background-color: #bebebe;
+  background-color: #fff;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding-top: 10px;
+  padding-top: 30px;
+  border-radius: 5px;
   /* transform: ${({ active }) => (active ? 'scale(1)' : 'scale(0)')}; */
   transform: ${({ active }) =>
     active

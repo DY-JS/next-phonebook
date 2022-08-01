@@ -1,10 +1,44 @@
-import React, { useContext, useEffect, useState } from "react";
-import styled from "styled-components";
+import React, { useContext, useEffect, useState } from 'react';
+import styled from 'styled-components';
 
-import { PhonesContext } from "../../context/PhonesContext";
+import { PhonesContext } from '../../context/PhonesContext';
+
+const Container = styled.div`
+  /* display: ${({ editMode }) => (editMode ? 'flex' : 'none')}; */
+  transform: ${({ editMode }) => (editMode ? 'scale(1)' : 'scale(0)')};
+  /* transform: ${({ editMode }) =>
+    editMode ? 'translate(0px, 0px)' : 'translate(0px, -100%)'}; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  height: 100vh;
+  width: 100vw;
+  top: 0;
+  left: 0;
+  background: rgba(17, 24, 39, 0.15);
+  backdrop-filter: blur(2px);
+  z-index: 3;
+  transition: transform 0.8s ease 0s;
+`;
 
 const Form = styled.div`
-  width: 100%;
+  width: 50%;
+  height: 50%;
+  background: #374151;
+  padding: 10px;
+  border-radius: 6px;
+  /* transform: ${({ editMode }) => (editMode ? 'scale(1)' : 'scale(0)')}; */
+  transform: ${({ editMode }) =>
+    // editMode ? 'translate(0px, 0%)' : 'translate(0px, -200%)'};
+    editMode
+      ? 'perspective(600px) translate(0px, 0%) rotateX(0deg)'
+      : 'perspective(600px) translate(0px, -200%) rotateX(85deg)'};
+  transition: all 0.8s ease 0s;
+
+  @media (max-width: 568px) {
+    width: 80%;
+  }
 `;
 
 const Title = styled.h2`
@@ -17,29 +51,35 @@ const Buttons = styled.div`
   display: flex;
   width: 50%;
   margin: 0 auto;
-`;
 
-const Container = styled.div`
-  display: ${({ editMode }) => (editMode ? "flex" : "none")};
-  position: absolute;
-  top: 25%;
-  right: 25%;
-  width: 500px;
-  height: 300px;
-  padding: 15px;
-  background: #374151;
-  color: #111827;
-  border: none;
-  border-radius: 3px;
-
-  @media (max-width: 756px) {
-    width: 300px;
-    right: 10%;
+  @media (max-width: 568px) {
+    width: 95%;
+    justify-content: space-around;
+    margin-bottom: 10px;
   }
 `;
 
+// const Container = styled.div`
+//   display: ${({ editMode }) => (editMode ? 'flex' : 'none')};
+//   position: absolute;
+//   top: 25%;
+//   right: 25%;
+//   width: 500px;
+//   height: 300px;
+//   padding: 15px;
+//   background: #374151;
+//   color: #111827;
+//   border: none;
+//   border-radius: 3px;
+
+//   @media (max-width: 756px) {
+//     width: 300px;
+//     right: 10%;
+//   }
+// `;
+
 const StyledInput = styled.input`
-  width: 100%;
+  width: 90%;
   height: 35px;
   margin: 10px;
   padding-left: 10px;
@@ -50,7 +90,6 @@ const StyledInput = styled.input`
   font-size: 14px;
 
   @media (max-width: 568px) {
-    width: 55%;
     margin-bottom: 10px;
   }
 `;
@@ -60,7 +99,7 @@ const StyledButton = styled.button`
   margin: 50px auto;
   color: #111827;
   background: ${({ actionType }) =>
-    actionType === "ok" ? "#2563eb" : "#DC2626"};
+    actionType === 'ok' ? '#2563eb' : '#DC2626'};
   border: none;
   padding: 10px 20px;
   font-weight: bold;
@@ -74,7 +113,7 @@ const StyledButton = styled.button`
   }
   &:hover {
     color: #fff;
-    background: ${({ actionType }) => actionType === "ok" && "#2884f6"};
+    background: ${({ actionType }) => actionType === 'ok' && '#2884f6'};
   }
 `;
 
@@ -86,9 +125,10 @@ const EditForm = () => {
     editMode,
     setEditMode,
   } = useContext(PhonesContext);
-  console.log(editMode);
+  // console.log(editMode);
 
   const [isSuccess, setIsSuccess] = useState(false);
+
   const handleClick = (event) => {
     event.preventDefault();
     handleEditNote(selectedNote);
@@ -100,7 +140,7 @@ const EditForm = () => {
   const handleChange = (event) => {
     const { name, value } = event.currentTarget;
     const prepearedValue =
-      name === "phone" ? value.replace(/[^\d]/g, "") : value;
+      name === 'phone' ? value.replace(/[^\d]/g, '') : value;
     setSelectedNote({
       ...selectedNote,
       [name]: prepearedValue,
@@ -117,24 +157,24 @@ const EditForm = () => {
         clearTimeout(timer);
       };
     }
-  }, [isSuccess]);
+  }, [isSuccess, editMode]);
 
   return (
     <Container editMode={editMode}>
-      <Form>
+      <Form editMode={editMode}>
         <Title>EDIT CONTACT</Title>
         <StyledInput
-          name='name'
-          value={selectedNote["name"]}
-          type='text'
-          placeholder='Type name'
+          name="name"
+          value={selectedNote && selectedNote['name']}
+          type="text"
+          placeholder="Type name"
           onChange={handleChange}
         />
         <StyledInput
-          name='phone'
-          value={selectedNote["phone"]}
-          type='text'
-          placeholder='Type phone number'
+          name="phone"
+          value={selectedNote && selectedNote['phone']}
+          type="text"
+          placeholder="Type phone number"
           onChange={handleChange}
         />
         {isSuccess ? (
@@ -142,13 +182,13 @@ const EditForm = () => {
         ) : (
           <Buttons>
             <StyledButton
-              actionType={"cancel"}
+              actionType={'cancel'}
               onClick={canselEditMode}
-              type='button'
+              type="button"
             >
               Cancel
             </StyledButton>
-            <StyledButton actionType={"ok"} type='button' onClick={handleClick}>
+            <StyledButton actionType={'ok'} onClick={handleClick} type="button">
               Save
             </StyledButton>
           </Buttons>

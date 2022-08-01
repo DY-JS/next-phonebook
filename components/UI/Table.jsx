@@ -1,9 +1,9 @@
-import React, { useContext, useEffect } from "react";
-import styled from "styled-components";
+import React, { useContext, useEffect } from 'react';
+import styled from 'styled-components';
 
-import { PhonesContext } from "../../context/PhonesContext";
-import EditForm from "./EditForm";
-import Row from "./Row";
+import { PhonesContext } from '../../context/PhonesContext';
+import EditForm from './EditForm';
+import Row from './Row';
 
 const AppTable = styled.table`
   width: 70%;
@@ -22,11 +22,13 @@ const AppTable = styled.table`
 `;
 
 function Table() {
-  const { data, setData, lsKey, columns, editMode } = useContext(PhonesContext);
+  const { data, setData, lsKey, columns, editMode, setEditMode } = useContext(
+    PhonesContext
+  );
 
   useEffect(() => {
     const getDataFromLS = (key) => {
-      if (typeof window !== "undefined") {
+      if (typeof window !== 'undefined') {
         localStorage.setItem(key, JSON.stringify(data));
       }
     };
@@ -39,17 +41,17 @@ function Table() {
       <AppTable>
         <thead>
           <tr>
-            <th scope='col'>#</th>
+            <th scope="col">#</th>
             {columns?.map((columnTitle) => {
-              if (columnTitle !== "id") {
+              if (columnTitle !== 'id') {
                 return (
-                  <th key={columnTitle} scope='col'>
+                  <th key={columnTitle} scope="col">
                     {columnTitle.toUpperCase()}
                   </th>
                 );
               }
             })}
-            <th scope='col'>ACTIONS</th>
+            <th scope="col">ACTIONS</th>
           </tr>
         </thead>
         <tbody>
@@ -58,7 +60,8 @@ function Table() {
           ))}
         </tbody>
       </AppTable>
-      {editMode && <EditForm />}
+      {/* {editMode && <EditForm />} */}
+      <EditForm />
     </>
   );
 }

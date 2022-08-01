@@ -1,18 +1,18 @@
-import { createContext, useState, useMemo, useCallback } from "react";
-import phonesData from "../pages/api/data.json";
+import { createContext, useState, useMemo, useCallback } from 'react';
+import phonesData from '../pages/api/data.json';
 
 export const PhonesContext = createContext();
 
 export const PhonesContextProvider = ({ children }) => {
-  const lsKey = "phonebook";
+  const lsKey = 'phonebook';
   const [data, setData] = useState(phonesData);
   const columns = data?.length ? Object.keys(data[0]) : [];
   const initialData = {
-    id: "",
-    name: "",
-    phone: "",
+    id: '',
+    name: '',
+    phone: '',
   };
-  const [selectedNote, setSelectedNote] = useState(null);
+  const [selectedNote, setSelectedNote] = useState(initialData);
   const [newNote, setNewNote] = useState(initialData);
   const [editMode, setEditMode] = useState(false);
   const [addMode, setAddMode] = useState(false);

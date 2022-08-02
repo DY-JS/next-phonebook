@@ -5,9 +5,12 @@ import { PhonesContext } from '../../context/PhonesContext';
 
 const Container = styled.div`
   /* display: ${({ editMode }) => (editMode ? 'flex' : 'none')}; */
-  transform: ${({ editMode }) => (editMode ? 'scale(1)' : 'scale(0)')};
+  /* transform: ${({ editMode }) => (editMode ? 'scale(1)' : 'scale(0)')}; */
   /* transform: ${({ editMode }) =>
     editMode ? 'translate(0px, 0px)' : 'translate(0px, -100%)'}; */
+  opacity: ${({ editMode }) => (editMode ? '1' : '0')};
+  pointer-events: ${({ editMode }) => (editMode ? 'all' : 'none')};
+  /*opacity c pointer-events обязательно */
   display: flex;
   justify-content: center;
   align-items: center;
@@ -19,7 +22,7 @@ const Container = styled.div`
   background: rgba(17, 24, 39, 0.15);
   backdrop-filter: blur(2px);
   z-index: 3;
-  transition: transform 0.8s ease 0s;
+  transition: all 0.8s ease 0s;
 `;
 
 const Form = styled.div`

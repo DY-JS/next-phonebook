@@ -2,19 +2,20 @@ import { useState } from 'react';
 import styled from 'styled-components';
 
 export const ModalContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
   position: fixed;
   width: 100vw;
   height: 100vh;
   top: 0;
   left: 0;
   background-color: rgba(17, 24, 39, 0.7);
+  backdrop-filter: blur(3px);
   opacity: ${({ active }) => (active ? '1' : '0')};
-  display: flex;
-  justify-content: center;
-  align-items: center;
   pointer-events: ${({ active }) => (active ? 'all' : 'none')};
   /* transform: ${({ active }) => (active ? 'scale(1)' : 'scale(0)')}; */
-  transition: 0.5s;
+  transition: 0.8s;
   z-index: 5;
 `;
 
@@ -34,7 +35,7 @@ export const ModalContent = styled.div`
     active
       ? 'perspective(600px) translate(0px, 0%) rotateX(0deg)'
       : 'perspective(600px) translate(0px, -200%) rotateX(85deg)'};
-  transition: 0.7s all;
+  transition: 0.8s all;
 `;
 
 const Buttons = styled.div`
